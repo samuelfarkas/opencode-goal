@@ -9,7 +9,7 @@ import { GOAL_LIMITS } from "../src/goal-contract.ts"
 const installer = resolve("scripts/install-opencode-plugin.mjs")
 const cli = resolve("src/cli.ts")
 const packageVersion = (JSON.parse(await readFile(resolve("package.json"), "utf8")) as { version: string }).version
-const releaseSpec = `@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v${packageVersion}/samuelfarkas-opencode-goal-${packageVersion}.tgz`
+const releaseSpec = `@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v${packageVersion}/samuelfarkas-opencode-goal-${packageVersion}.tgz?download=1`
 
 type CommandResult = { code: number; stdout: string; stderr: string }
 
