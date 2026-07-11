@@ -4,17 +4,13 @@
   "workspaces": {
     "": {
       "name": "@samuelfarkas/opencode-goal",
-      "devDependencies": {
+      "dependencies": {
         "@opencode-ai/plugin": ">=1.17.9 <2",
+      },
+      "devDependencies": {
         "@types/bun": "^1.3.5",
         "typescript": "^5.9.3",
       },
-      "peerDependencies": {
-        "@opencode-ai/plugin": ">=1.17.9 <2",
-      },
-      "optionalPeers": [
-        "@opencode-ai/plugin",
-      ],
     },
   },
   "packages": {

@@ -20,7 +20,7 @@ Add the versioned GitHub release tarball to your project `opencode.json`:
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
-    "@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v0.3.6/samuelfarkas-opencode-goal-0.3.6.tgz"
+    "@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v0.3.7/samuelfarkas-opencode-goal-0.3.7.tgz"
   ]
 }
 ```
@@ -31,7 +31,7 @@ Verdaccio, a private registry, or an access token.
 Alternatively, let the packaged installer update your global OpenCode config:
 
 ```sh
-bunx --package '@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v0.3.6/samuelfarkas-opencode-goal-0.3.6.tgz?download=1' opencode-goal --global
+bunx --package '@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v0.3.7/samuelfarkas-opencode-goal-0.3.7.tgz?download=1' opencode-goal --global
 ```
 
 Restart OpenCode, then create a goal:
@@ -143,7 +143,7 @@ accept plugin tuples, options can be supplied with the package entry:
 {
   "plugin": [
     [
-      "@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v0.3.6/samuelfarkas-opencode-goal-0.3.6.tgz",
+      "@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v0.3.7/samuelfarkas-opencode-goal-0.3.7.tgz",
       {
         "maxTurns": 10,
         "maxDurationSeconds": 900,

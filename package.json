@@ -1,6 +1,6 @@
 {
   "name": "@samuelfarkas/opencode-goal",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Durable session goal workflow for OpenCode.",
   "type": "module",
   "main": "./build/index.js",
@@ -52,18 +52,12 @@
     "url": "https://github.com/samuelfarkas/opencode-goal/issues"
   },
   "homepage": "https://github.com/samuelfarkas/opencode-goal#readme",
-  "devDependencies": {
-    "@opencode-ai/plugin": ">=1.17.9 <2",
-    "@types/bun": "^1.3.5",
-    "typescript": "^5.9.3"
-  },
-  "peerDependencies": {
+  "dependencies": {
     "@opencode-ai/plugin": ">=1.17.9 <2"
   },
-  "peerDependenciesMeta": {
-    "@opencode-ai/plugin": {
-      "optional": true
-    }
+  "devDependencies": {
+    "@types/bun": "^1.3.5",
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">=22.18",

@@ -122,6 +122,9 @@ async function main() {
     if (manifest.publishConfig?.access !== "public") {
       throw new Error("packed manifest is not configured for public package access")
     }
+    if (manifest.dependencies?.["@opencode-ai/plugin"] !== ">=1.17.9 <2") {
+      throw new Error("packed manifest must install @opencode-ai/plugin as a runtime dependency")
+    }
     for (const internalScript of ["pack:local", "registry:start", "registry:publish"]) {
       if (manifest.scripts?.[internalScript] !== undefined) {
         throw new Error(`packed manifest exposes internal distribution script ${internalScript}`)
