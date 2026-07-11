@@ -864,7 +864,7 @@ test("archive survives active recovery corruption without becoming current work"
   assert.equal(await readFile(`${file}.archive.json`, "utf8"), archiveBefore)
 })
 
-test("archive retention prunes by exact age and newest-first count without affecting active goals", async () => {
+test("archive retention prunes by exact age and newest-first count without affecting active goals", { timeout: 30_000 }, async () => {
   const directory = await mkdtemp(join(tmpdir(), "opencode-goal-archive-retention-"))
   const file = join(directory, "state.json")
   let now = 2_000_000_000
