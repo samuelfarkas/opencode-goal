@@ -14,13 +14,24 @@ endorsed by the OpenCode team.
 
 ## Install
 
-Add the package to your project `opencode.json`:
+Add the versioned GitHub release tarball to your project `opencode.json`:
 
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["@samuelfarkas/opencode-goal"]
+  "plugin": [
+    "@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v0.3.4/samuelfarkas-opencode-goal-0.3.4.tgz"
+  ]
 }
+```
+
+This uses GitHub Releases directly. It does not use npm, GitHub Packages,
+Verdaccio, a private registry, or an access token.
+
+Alternatively, let the packaged installer update your global OpenCode config:
+
+```sh
+bunx --package '@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v0.3.4/samuelfarkas-opencode-goal-0.3.4.tgz' opencode-goal --global
 ```
 
 Restart OpenCode, then create a goal:
@@ -40,8 +51,9 @@ project's `.gitignore`:
 .opencode/goals/
 ```
 
-To install the plugin globally, add the same package entry to
-`~/.config/opencode/opencode.json` instead.
+To install manually for every project, add the same package entry to
+`~/.config/opencode/opencode.json` instead. Upgrade by replacing both version
+numbers in the URL with the new release version.
 
 ## Use
 
@@ -115,7 +127,7 @@ when the OpenCode tool factory is available.
 Run the provider-free doctor against a project configuration:
 
 ```sh
-bunx @samuelfarkas/opencode-goal doctor --config /path/to/project/opencode.json
+opencode-goal doctor --config /path/to/project/opencode.json
 ```
 
 Doctor inspects package metadata, configuration, existing goal files, and the
@@ -131,7 +143,7 @@ accept plugin tuples, options can be supplied with the package entry:
 {
   "plugin": [
     [
-      "@samuelfarkas/opencode-goal",
+      "@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v0.3.4/samuelfarkas-opencode-goal-0.3.4.tgz",
       {
         "maxTurns": 10,
         "maxDurationSeconds": 900,

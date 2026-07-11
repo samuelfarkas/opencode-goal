@@ -1,6 +1,6 @@
 {
   "name": "@samuelfarkas/opencode-goal",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Durable session goal workflow for OpenCode.",
   "type": "module",
   "main": "./build/index.js",

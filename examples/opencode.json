@@ -1,4 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["@samuelfarkas/opencode-goal"]
+  "plugin": [
+    "@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v0.3.4/samuelfarkas-opencode-goal-0.3.4.tgz"
+  ]
 }

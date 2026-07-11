@@ -8,6 +8,8 @@ import { GOAL_LIMITS } from "../src/goal-contract.ts"
 
 const installer = resolve("scripts/install-opencode-plugin.mjs")
 const cli = resolve("src/cli.ts")
+const packageVersion = (JSON.parse(await readFile(resolve("package.json"), "utf8")) as { version: string }).version
+const releaseSpec = `@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v${packageVersion}/samuelfarkas-opencode-goal-${packageVersion}.tgz`
 
 type CommandResult = { code: number; stdout: string; stderr: string }
 
@@ -132,6 +134,7 @@ test("installer preserves existing mode and restricts a new config", async () =>
 
   assert.equal((await runInstaller(["--config", existing])).code, 0)
   assert.equal((await lstat(existing)).mode & 0o777, 0o640)
+  assert.deepEqual((await readJson(existing)).plugin, [releaseSpec])
 
   assert.equal((await runInstaller(["--config", created])).code, 0)
   assert.equal((await lstat(created)).mode & 0o177, 0)
@@ -325,7 +328,7 @@ test("packed installer preserves tuples and rejects a missing value", async () =
 
   const installedResult = await execFileResult(process.execPath, [packedInstaller, "--config", configPath])
   assert.equal(installedResult.code, 0, installedResult.stderr)
-  assert.deepEqual((await readJson(configPath)).plugin, [["other-plugin", { keep: true }], "@samuelfarkas/opencode-goal"])
+  assert.deepEqual((await readJson(configPath)).plugin, [["other-plugin", { keep: true }], releaseSpec])
 
   const before = await readFile(configPath, "utf8")
   const missing = await execFileResult(process.execPath, [packedInstaller, "--config"])

@@ -5,10 +5,13 @@ import { basename, dirname, join, resolve } from "node:path"
 import { homedir } from "node:os"
 
 const PACKAGE_SPEC = "@samuelfarkas/opencode-goal"
+const PACKAGE_VERSION = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8")).version
+const RELEASE_SPEC = `${PACKAGE_SPEC}@https://github.com/samuelfarkas/opencode-goal/releases/download/v${PACKAGE_VERSION}/samuelfarkas-opencode-goal-${PACKAGE_VERSION}.tgz`
 const rawArgs = process.argv.slice(2)
 const usage = `Usage: opencode-goal [--global] [--config <path>] [--spec <plugin-spec>]
 
-Adds ${PACKAGE_SPEC} to OpenCode config. The plugin registers /goal at load time.
+Adds the registry-free GitHub release of ${PACKAGE_SPEC} to OpenCode config.
+The plugin registers /goal at load time.
 
 Options:
   --global       Write ~/.config/opencode/opencode.json
@@ -128,7 +131,7 @@ async function main() {
     return
   }
 
-  const pluginSpec = parsed.spec ?? PACKAGE_SPEC
+  const pluginSpec = parsed.spec ?? RELEASE_SPEC
   const configPath = parsed.config
     ? resolve(parsed.config)
     : parsed.global
