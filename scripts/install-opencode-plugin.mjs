@@ -6,7 +6,7 @@ import { homedir } from "node:os"
 
 const PACKAGE_SPEC = "@samuelfarkas/opencode-goal"
 const PACKAGE_VERSION = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8")).version
-const RELEASE_SPEC = `${PACKAGE_SPEC}@https://github.com/samuelfarkas/opencode-goal/releases/download/v${PACKAGE_VERSION}/samuelfarkas-opencode-goal-${PACKAGE_VERSION}.tgz?download=1`
+const RELEASE_SPEC = `${PACKAGE_SPEC}@https://github.com/samuelfarkas/opencode-goal/releases/download/v${PACKAGE_VERSION}/samuelfarkas-opencode-goal-${PACKAGE_VERSION}.tgz`
 const rawArgs = process.argv.slice(2)
 const usage = `Usage: opencode-goal [--global] [--config <path>] [--spec <plugin-spec>]
 
