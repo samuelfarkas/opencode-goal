@@ -331,8 +331,8 @@ test("/goal canonical policy flags persist resolved limits and bounded constrain
   assert.doesNotMatch(text(parts), /Policy overrides|Constraints:/)
   goals = await readGoals(stateFilePath)
   assert.deepEqual(goals.find((goal) => goal.objective === "ordinary objective")?.policy, {
-    maxTurns: 10,
-    maxDurationSeconds: 900,
+    maxTurns: 0,
+    maxDurationSeconds: 0,
     tokenBudget: null,
     constraints: [],
   })

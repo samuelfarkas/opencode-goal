@@ -298,8 +298,8 @@ function validatePolicy(
   if (!isRecord(value)) return issue(issues, path, "type", "must be an object")
   const unknown = Object.keys(value).filter((key) => !["maxTurns", "maxDurationSeconds", "tokenBudget", "constraints"].includes(key))
   if (unknown.length > 0) issue(issues, path, "unknown", `contains unknown fields: ${unknown.join(", ")}`)
-  const maxTurns = safeInteger(value.maxTurns, `${path}.maxTurns`, issues, true)
-  const maxDurationSeconds = safeInteger(value.maxDurationSeconds, `${path}.maxDurationSeconds`, issues, true)
+  const maxTurns = safeInteger(value.maxTurns, `${path}.maxTurns`, issues)
+  const maxDurationSeconds = safeInteger(value.maxDurationSeconds, `${path}.maxDurationSeconds`, issues)
   let tokenBudget: number | null | undefined
   if (value.tokenBudget === null) tokenBudget = null
   else tokenBudget = safeInteger(value.tokenBudget, `${path}.tokenBudget`, issues, true)
@@ -802,8 +802,10 @@ export function projectGoalForTool(goal: StoredGoal): Record<string, unknown> {
     checks: checks.checks,
     checksTruncated: checks.truncated,
     policy: {
-      maxTurns: projectNonNegativeInteger(goal.policy.maxTurns),
-      maxDurationSeconds: projectNonNegativeInteger(goal.policy.maxDurationSeconds),
+      maxTurns: goal.policy.maxTurns > 0 ? projectNonNegativeInteger(goal.policy.maxTurns) : null,
+      maxDurationSeconds: goal.policy.maxDurationSeconds > 0
+        ? projectNonNegativeInteger(goal.policy.maxDurationSeconds)
+        : null,
       tokenBudget: goal.policy.tokenBudget === null ? null : projectNonNegativeInteger(goal.policy.tokenBudget),
       constraints: goal.policy.constraints.map((constraint) => truncateCodePoints(constraint, GOAL_LIMITS.constraintCodePoints)),
     },

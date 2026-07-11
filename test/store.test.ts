@@ -227,8 +227,8 @@ test("invalid persisted scalar, identifier, and string contracts fail closed wit
       mutate: (goal) => { (goal.policy as Record<string, unknown>).tokenBudget = 0 },
     },
     {
-      name: "zero policy turns",
-      mutate: (goal) => { (goal.policy as Record<string, unknown>).maxTurns = 0 },
+      name: "negative policy turns",
+      mutate: (goal) => { (goal.policy as Record<string, unknown>).maxTurns = -1 },
     },
     {
       name: "too many constraints",

@@ -45,8 +45,9 @@ export type GoalPolicy = {
 
 export function defaultGoalPolicy(tokenBudget: number | null = null): GoalPolicy {
   return {
-    maxTurns: 10,
-    maxDurationSeconds: 15 * 60,
+    // Zero disables the optional guard, matching Codex's unbounded default.
+    maxTurns: 0,
+    maxDurationSeconds: 0,
     tokenBudget,
     constraints: [],
   }

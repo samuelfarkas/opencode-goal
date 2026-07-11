@@ -67,8 +67,8 @@ export function buildTools(
           objective: validation.objective,
           tokenBudget: options?.tokenBudget ?? null,
           policy: goalPolicyDefaults({
-            maxTurns: options?.maxTurns ?? 10,
-            maxDurationSeconds: options?.maxDurationSeconds ?? 15 * 60,
+            maxTurns: options?.maxTurns ?? 0,
+            maxDurationSeconds: options?.maxDurationSeconds ?? 0,
             tokenBudget: options?.tokenBudget ?? null,
           }),
         })

@@ -20,7 +20,7 @@ Add the versioned GitHub release tarball to your project `opencode.json`:
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
-    "@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v0.3.7/samuelfarkas-opencode-goal-0.3.7.tgz"
+    "@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v0.3.8/samuelfarkas-opencode-goal-0.3.8.tgz"
   ]
 }
 ```
@@ -31,7 +31,7 @@ Verdaccio, a private registry, or an access token.
 Alternatively, let the packaged installer update your global OpenCode config:
 
 ```sh
-bunx --package '@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v0.3.7/samuelfarkas-opencode-goal-0.3.7.tgz?download=1' opencode-goal --global
+bunx --package '@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v0.3.8/samuelfarkas-opencode-goal-0.3.8.tgz?download=1' opencode-goal --global
 ```
 
 Restart OpenCode, then create a goal:
@@ -143,10 +143,10 @@ accept plugin tuples, options can be supplied with the package entry:
 {
   "plugin": [
     [
-      "@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v0.3.7/samuelfarkas-opencode-goal-0.3.7.tgz",
+      "@samuelfarkas/opencode-goal@https://github.com/samuelfarkas/opencode-goal/releases/download/v0.3.8/samuelfarkas-opencode-goal-0.3.8.tgz",
       {
-        "maxTurns": 10,
-        "maxDurationSeconds": 900,
+        "maxTurns": 0,
+        "maxDurationSeconds": 0,
         "tokenBudget": 200000,
         "toastNotifications": true,
         "sessionTitle": true
@@ -161,8 +161,8 @@ Supported options:
 | Option | Default | Purpose |
 | --- | ---: | --- |
 | `commandName` | `goal` | Slash-command name |
-| `maxTurns` | `10` | Continuation limit per goal |
-| `maxDurationSeconds` | `900` | Active-time limit per goal |
+| `maxTurns` | `0` (disabled) | Optional continuation limit per goal |
+| `maxDurationSeconds` | `0` (disabled) | Optional active-time limit per goal |
 | `tokenBudget` | none | Cumulative assistant-token limit |
 | `stateFilePath` | `.opencode/goals/opencode-goal-state.json` | Durable state path |
 | `persistState` | `true` | Enable durable state |
@@ -187,6 +187,10 @@ Supported options:
 If your OpenCode version rejects tuple entries, use the plain package string;
 all defaults remain available.
 
+Like Codex `/goal`, a plain goal has no turn or elapsed-time limit. Set a
+positive configuration value or use `--max-turns` / `--max-minutes` when a
+specific goal should have those safeguards.
+
 ## Development
 
 ```sh
@@ -194,7 +198,7 @@ bun install
 bun run release:check
 ```
 
-The release check runs strict TypeScript checking, 170 unit and race tests, a
+The release check runs strict TypeScript checking, 171 unit and race tests, a
 clean build, and a packed external-consumer smoke test. Maintainers can also run
 `bun run smoke:host` against supported OpenCode binaries.
 

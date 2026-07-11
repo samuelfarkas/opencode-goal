@@ -112,8 +112,8 @@ export function resolveOptions(options: GoalPluginOptions = {}, cwd = process.cw
   const stateFile = resolveStateFilePath(options.stateFilePath, cwd)
   return {
     commandName: commandNameResult.value,
-    maxTurns: positiveInteger(options.maxTurns, 10),
-    maxDurationSeconds: positiveInteger(options.maxDurationSeconds, 15 * 60),
+    maxTurns: positiveInteger(options.maxTurns, 0),
+    maxDurationSeconds: positiveInteger(options.maxDurationSeconds, 0),
     tokenBudget: configuredTokenBudget > 0 ? configuredTokenBudget : null,
     ...stateFile,
     persistState: options.persistState !== false,

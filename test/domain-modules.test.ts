@@ -5,6 +5,7 @@ import {
   GOAL_LIMITS,
   codePointLength,
   goalToolJson,
+  projectGoalForTool,
   validateCheckText,
   validateCheckEvidence,
   validateConstraints,
@@ -189,6 +190,25 @@ test("goal-scoped policies enforce independent limits and constraint bounds", ()
   assert.equal(validateConstraints(Array.from({ length: 21 }, () => "constraint")).ok, false)
   assert.equal(validateConstraints(["x".repeat(GOAL_LIMITS.constraintCodePoints + 1)]).ok, false)
   assert.equal(validateConstraints(Array.from({ length: 9 }, () => "x".repeat(1_000))).ok, false)
+})
+
+test("plain goal defaults leave turn and duration guards disabled", () => {
+  const options = resolveOptions({}, "/tmp")
+  const goal = createThreadGoal({ threadId: "unbounded", objective: "finish fully", tokenBudget: null })
+  goal.continuationCount = 10_000
+  goal.timeUsedSeconds = 10_000_000
+
+  assert.equal(options.maxTurns, 0)
+  assert.equal(options.maxDurationSeconds, 0)
+  assert.equal(goal.policy.maxTurns, 0)
+  assert.equal(goal.policy.maxDurationSeconds, 0)
+  assert.equal(budgetLimit(goal, options), "")
+  assert.deepEqual(projectGoalForTool(goal).policy, {
+    maxTurns: null,
+    maxDurationSeconds: null,
+    tokenBudget: null,
+    constraints: [],
+  })
 })
 
 test("compaction labels active and paused goals accurately and omits terminal goals", () => {
@@ -533,6 +553,7 @@ test("active-time helpers accrue once and exclude long pauses", () => {
   let now = 0
   const clock = () => now
   const goal = createThreadGoal({ threadId: "s1", objective: "finish", tokenBudget: null, clock })
+  goal.policy.maxDurationSeconds = 900
 
   now = 300
   assert.equal(activeTimeSeconds(goal, clock), 300)

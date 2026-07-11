@@ -155,7 +155,10 @@ export function interruptBudgetWrapup(goal: StoredGoal, detail: string, clock?: 
 }
 
 export function markAutoContinueSent(goal: StoredGoal, _options: Pick<ResolvedOptions, "maxTurns">, mode: "continue" | "wrapup", clock?: GoalClock): void {
-  touchGoal(goal, mode === "wrapup" ? "budgetWrapup" : "autoContinue", `Sent continuation ${goal.continuationCount}/${goal.policy.maxTurns}.`, clock)
+  const count = goal.policy.maxTurns > 0
+    ? `${goal.continuationCount}/${goal.policy.maxTurns}`
+    : `${goal.continuationCount}`
+  touchGoal(goal, mode === "wrapup" ? "budgetWrapup" : "autoContinue", `Sent continuation ${count}.`, clock)
 }
 
 export function markAutoContinueRecovered(goal: StoredGoal, clock?: GoalClock): void {

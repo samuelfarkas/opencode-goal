@@ -56,8 +56,10 @@ function goalDataProjection(goal: StoredGoal, options: ResolvedOptions, compact:
     checks: compact ? compactChecks(projectedChecks.checks) : projectedChecks.checks,
     checks_truncated: projectedChecks.truncated || (compact && projectedChecks.checks.length > 20),
     policy: {
-      max_turns: projectNonNegativeInteger(goal.policy.maxTurns),
-      max_duration_seconds: projectNonNegativeInteger(goal.policy.maxDurationSeconds),
+      max_turns: goal.policy.maxTurns > 0 ? projectNonNegativeInteger(goal.policy.maxTurns) : null,
+      max_duration_seconds: goal.policy.maxDurationSeconds > 0
+        ? projectNonNegativeInteger(goal.policy.maxDurationSeconds)
+        : null,
       token_budget: goal.policy.tokenBudget === null ? null : projectNonNegativeInteger(goal.policy.tokenBudget),
       constraints: compact
         ? compactConstraints(goal.policy.constraints)

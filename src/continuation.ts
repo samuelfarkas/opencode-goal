@@ -15,8 +15,8 @@ export type ContinuationDecision =
 
 export function budgetLimit(goal: StoredGoal, options: ResolvedOptions, clock?: GoalClock): string {
   if (goal.policy.tokenBudget !== null && goal.tokensUsed >= goal.policy.tokenBudget) return "Token budget reached."
-  if (activeTimeSeconds(goal, clock) >= goal.policy.maxDurationSeconds) return "Duration budget reached."
-  if (goal.continuationCount >= goal.policy.maxTurns) return "Auto-continue turn budget reached."
+  if (goal.policy.maxDurationSeconds > 0 && activeTimeSeconds(goal, clock) >= goal.policy.maxDurationSeconds) return "Duration budget reached."
+  if (goal.policy.maxTurns > 0 && goal.continuationCount >= goal.policy.maxTurns) return "Auto-continue turn budget reached."
   return ""
 }
 
