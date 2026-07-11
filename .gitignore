@@ -1,0 +1,17 @@
+node_modules/
+build/
+dist/
+registry/htpasswd
+registry/storage/
+.opencode/goals/
+*.tgz
+
+# Local/private distribution experiments are intentionally not public assets.
+docs/debian-home-registry.md
+docs/packaging.md
+docs/research.md
+docs/goal-loop-comparison.md
+docs/publishing.md
+docs/plans/
+examples/bunfig.local-registry.toml
+examples/opencode.tarball.json

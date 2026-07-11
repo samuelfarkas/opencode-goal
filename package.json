@@ -1,0 +1,77 @@
+{
+  "name": "@samuelfarkas/opencode-goal",
+  "version": "0.3.3",
+  "description": "Durable session goal workflow for OpenCode.",
+  "type": "module",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "bin": {
+    "opencode-goal": "./build/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js"
+    },
+    "./server": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js"
+    }
+  },
+  "files": [
+    "build",
+    "LICENSE",
+    "README.md",
+    "examples/opencode.json",
+    "scripts/install-opencode-plugin.mjs"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && bun scripts/rewrite-declaration-imports.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test test/*.test.ts",
+    "check": "bun run typecheck && bun run test",
+    "smoke:package": "bun scripts/smoke-package.mjs",
+    "smoke:host": "bun run build && bun scripts/smoke-host.mjs",
+    "release:check": "bun run typecheck && bun run test && bun run build && bun run smoke:package",
+    "prepack": "bun run build",
+    "opencode:install": "bun scripts/install-opencode-plugin.mjs"
+  },
+  "keywords": [
+    "opencode",
+    "opencode-plugin",
+    "goal",
+    "agent",
+    "automation"
+  ],
+  "author": "Samuel Farkas",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samuelfarkas/opencode-goal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/samuelfarkas/opencode-goal/issues"
+  },
+  "homepage": "https://github.com/samuelfarkas/opencode-goal#readme",
+  "devDependencies": {
+    "@opencode-ai/plugin": ">=1.17.9 <2",
+    "@types/bun": "^1.3.5",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "@opencode-ai/plugin": ">=1.17.9 <2"
+  },
+  "peerDependenciesMeta": {
+    "@opencode-ai/plugin": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=22.18",
+    "opencode": ">=1.17.9"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "packageManager": "bun@1.3.9"
+}
